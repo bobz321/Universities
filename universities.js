@@ -1,7 +1,4 @@
 $(document).ready(function() {
-    $.get('countries.json', function(data, status){
-        more_countrys = data;
-    });
 
     setButtonText();
     generateUniversitiesList(getSelectedValue());
@@ -9,7 +6,16 @@ $(document).ready(function() {
     $("#target").change(function() {
         setButtonText();
         generateUniversitiesList(getSelectedValue());
+
     });
+
+    function getSelectedValue() {
+        return $('#target').find(":selected").val();
+    }
+
+    function setButtonText() {
+        $("#collapseButton").html("Universities in " + $('#target').find(":selected").text());
+    }
 
     function generateUniversitiesList(country) {
         var urlLink = "http://universities.hipolabs.com/search?country=" + country;
@@ -24,21 +30,5 @@ $(document).ready(function() {
                 $("#universityList").append("Can't load the list from url.");
             }
         });
-    }
-    function getSelectedValue() {
-        return $('#target').find(":selected").val();
-    }
-
-    function setButtonText() {
-        $("#collapseButton").html("Universities in " + $('#target').find(":selected").text());
-    }
-    
-    function addVal() {
-        optionText = more_countrys[Math.random().name];
-        optionValue = more_countrys[Math.random().name];
-  
-            $('.test').append(`<option value="${optionValue}">
-                                       ${optionText}
-                                       </option>`);
     }
 });
